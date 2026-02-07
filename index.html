@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rose Day Magic 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: "Poppins", Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .card {
+    background: #fff;
+    padding: 30px 25px 40px;
+    width: 90%;
+    max-width: 360px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+  }
+
+  h1 {
+    font-size: 22px;
+    color: #c9184a;
+    margin-bottom: 10px;
+  }
+
+  .hint {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  .rose-wrapper {
+    position: relative;
+    height: 120px;
+  }
+
+  .rose {
+    font-size: 90px;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+  }
+
+  .rose.open {
+    transform: scale(1.2) rotate(-10deg);
+  }
+
+  .magic {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 18px;
+    animation: float 2s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) scale(0.5);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-80px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .message {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #7a0c2e;
+    display: none;
+    animation: fadeUp 0.6s ease;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Happy Rose Day 🌹</h1>
+  <div class="hint">Tap the rose… something magical inside ✨</div>
+
+  <div class="rose-wrapper">
+    <div class="rose" id="rose" onclick="openRose()">🌹</div>
+    <div class="magic" id="magic"></div>
+  </div>
+
+  <div class="message" id="message">
+    This rose blooms just to make you smile 🌸💖
+  </div>
+</div>
+
+<script>
+  let opened = false;
+
+  function openRose() {
+    if (opened) return;
+    opened = true;
+
+    const rose = document.getElementById("rose");
+    const magic = document.getElementById("magic");
+    const msg = document.getElementById("message");
+
+    // rose opening
+    rose.classList.add("open");
+
+    // create hearts
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 80 + "%";
+        heart.style.bottom = "0px";
+        magic.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 2000);
+      }, i * 120);
+    }
+
+    // show message after magic
+    setTimeout(() => {
+      msg.style.display = "block";
+    }, 900);
+  }
+</script>
+
+</body>
+</html>
